@@ -62,7 +62,7 @@ class Config:
 
     ALLOWED_ORIGINS = tuple(
         origin.strip()
-        for origin in setting("ALLOWED_ORIGINS", "http://localhost:4200").split(",")
+        for origin in setting("ALLOWED_ORIGINS", "http://localhost:4302").split(",")
         if origin.strip()
     )
 

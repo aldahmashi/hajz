@@ -186,7 +186,7 @@ User message
 
 | Environment | Frontend | Backend | Database |
 |---|---|---|---|
-| Local | `ng serve` :4200 (proxy `/api` → :8000) | Flask :8000 | MySQL 8 in Docker |
+| Local | `ng serve` :4302 (proxy `/api` → :8000) | Flask :8000 | MySQL 8 in Docker |
 | Preview | Vercel preview per pull request | Production API | Production DB (read-mostly) |
 | Production | `hajz.vercel.app` | `hajz-api.onrender.com` | TiDB Serverless |
 
