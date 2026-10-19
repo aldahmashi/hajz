@@ -93,7 +93,7 @@ flowchart LR
 |---|---|
 | Planning and design | ✅ Done |
 | Database layer (25 tables, migrations, seeders) | ✅ Done |
-| M0 · First deployment (live "hello world") | ⏳ Next |
+| M0 · Setup: API skeleton, frontend, CI ✅ · first deployment ⏳ | ⏳ In progress |
 | M1 · Data import (14 cities) | ⬜ |
 | M2 · Catalogue, search and map | ⬜ |
 | M3 · Accounts and demo personas | ⬜ |
@@ -110,21 +110,29 @@ flowchart LR
 | [02 Architecture](docs/02-architecture.md) | System design, key flows, security |
 | [03 Data model](docs/03-data-model.md) | Tables, relationships, sizing |
 | [04 Business rules](docs/04-business-rules.md) | Booking, pricing, cancellation and other rules |
+| [05 Design reference](docs/05-design-reference.md) | Colours, type, components the UI is based on |
+| [06 Local development](docs/06-local-development.md) | Run the frontend and backend, tests, troubleshooting |
 
 ## Run locally
 
-Requirements: Python 3.13 and Docker Desktop.
+Requirements: Docker Desktop, Python 3.13 and Node.js 24. Full guide with
+first-time setup, tests and troubleshooting:
+**[06 Local development](docs/06-local-development.md)**.
+
+After first-time setup, run in two terminals:
 
 ```powershell
+# Terminal 1: database + API on http://localhost:8000
 docker compose up -d
 cd backend
-py -3.13 -m venv .venv
 .\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-Copy-Item .env.example .env
-python manage.py migrate
-python manage.py seed
-python manage.py db-status
+python app.py
+```
+
+```powershell
+# Terminal 2: frontend on http://localhost:4302
+cd frontend
+npm start
 ```
 
 ## Data and honesty
