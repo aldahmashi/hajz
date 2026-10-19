@@ -1,0 +1,102 @@
+/*
+ * Hajz design tokens, adapted from docs/05-design-reference.md:
+ * true-black storytelling bands alternate with white catalogue bands, buttons are
+ * pills, cards are 20px with no shadows, and cobalt violet is a scarce accent.
+ * Aeonik Pro is proprietary, so display type uses Inter Tight (tightened).
+ */
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/inter-tight';
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Inter Tight Variable', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: #494fdf;
+  --color-primary-bright: #4f55f1;
+  --color-primary-deep: #3a40c4;
+
+  --color-ink: #191c1f;
+  --color-body: #1f2226;
+  --color-charcoal: #3a3d40;
+  --color-mute: #505a63;
+  --color-stone: #8d969e;
+  --color-faint: #c9c9cd;
+  --color-on-dark-mute: rgb(255 255 255 / 0.72);
+
+  --color-surface-soft: #f4f4f4;
+  --color-surface-elevated: #16181a;
+  --color-hairline-light: #e2e2e7;
+  --color-hairline-dark: rgb(255 255 255 / 0.12);
+
+  --color-success: #00a87e;
+  --color-warning: #ec7e00;
+  --color-danger: #e23b4a;
+  --color-link: #376cd5;
+
+  --radius-input: 12px;
+  --radius-card: 20px;
+  --radius-mockup: 28px;
+}
+
+@layer base {
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    letter-spacing: 0.015em;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-bright;
+  }
+}
+
+/* Reusable components as utilities, so @apply and variants work on them. */
+/* Display type: weight 500, tight leading, tracking tightens with size. */
+@utility display-xxl {
+  @apply font-display text-5xl leading-none font-medium tracking-[-0.02em] sm:text-7xl lg:text-[8.5rem];
+}
+@utility display-lg {
+  @apply font-display text-4xl leading-[1.15] font-medium tracking-[-0.01em] lg:text-5xl;
+}
+@utility heading-md {
+  @apply font-display text-2xl leading-snug font-medium;
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6;
+}
+@utility band {
+  @apply py-16 sm:py-[88px];
+}
+
+/* Buttons: all pills, 48px tall. */
+@utility btn {
+  @apply inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-base font-semibold
+    tracking-[0.015em] transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-white text-black hover:bg-faint;
+}
+@utility btn-dark {
+  @apply btn bg-black text-white hover:bg-charcoal;
+}
+@utility btn-soft {
+  @apply btn bg-surface-soft text-ink hover:bg-hairline-light;
+}
+@utility btn-outline-dark {
+  @apply btn border border-white bg-black px-[27px] text-white hover:bg-surface-elevated;
+}
+
+@utility badge-tag {
+  @apply inline-flex items-center rounded-full bg-surface-soft px-3 py-1 text-[13px] text-ink;
+}
+@utility badge-feature {
+  @apply inline-flex items-center rounded-full bg-primary px-3 py-1 text-[13px] text-white;
+}
+
+@utility card-light {
+  @apply rounded-card border border-hairline-light bg-white p-8;
+}
+@utility card-dark {
+  @apply rounded-card bg-surface-elevated p-8 text-white;
+}

@@ -1,0 +1,75 @@
+<!-- Hero: dark storytelling band -->
+<section class="band bg-black text-white">
+  <div class="container-page">
+    <span class="badge-feature">Coming soon</span>
+    <h1 class="display-xxl mt-6 max-w-5xl">Find the stay that fits you.</h1>
+    <p class="mt-6 max-w-2xl text-lg leading-relaxed text-on-dark-mute">
+      Hajz learns what you value, explains why it recommends a stay, and lets you describe
+      your trip in plain language instead of fighting filters.
+    </p>
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a class="btn-primary" href="#status">Check system status</a>
+      <a class="btn-outline-dark" [href]="repoUrl + '#readme'" target="_blank" rel="noopener">
+        Read the plan
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Features and cities: light catalogue band -->
+<section class="band">
+  <div class="container-page">
+    <h2 class="display-lg max-w-3xl">Like asking a well-travelled friend.</h2>
+    <div class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      @for (feature of features; track feature.title) {
+        <article class="card-light">
+          <h3 class="heading-md">{{ feature.title }}</h3>
+          <p class="mt-3 text-mute">{{ feature.body }}</p>
+        </article>
+      }
+    </div>
+
+    <h3 class="heading-md mt-16">14 cities, real listings</h3>
+    <ul class="mt-5 flex flex-wrap gap-2">
+      @for (city of cities; track city) {
+        <li class="badge-tag">{{ city }}</li>
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- System status: dark band -->
+<section id="status" class="band scroll-mt-4 bg-black text-white">
+  <div class="container-page">
+    <h2 class="display-lg">System status</h2>
+    <div class="card-dark mt-10 max-w-xl" aria-live="polite">
+      @let s = status();
+      @if (s.state === 'loading') {
+        <p class="flex items-center gap-3 text-on-dark-mute">
+          <span class="size-2.5 animate-pulse rounded-full bg-stone"></span>
+          Checking the API…
+        </p>
+      } @else if (s.state === 'ok') {
+        <p class="flex items-center gap-3 text-lg font-semibold" data-testid="status-ok">
+          <span class="size-2.5 rounded-full bg-success"></span>
+          All systems operational
+        </p>
+        <dl class="mt-6 grid grid-cols-[auto_1fr] gap-x-8 gap-y-3 text-sm">
+          <dt class="text-on-dark-mute">Environment</dt>
+          <dd>{{ s.health.env }}</dd>
+          <dt class="text-on-dark-mute">Database</dt>
+          <dd>{{ s.health.database }}</dd>
+          <dt class="text-on-dark-mute">Schema</dt>
+          <dd class="font-mono">{{ s.health.migration }}</dd>
+        </dl>
+      } @else {
+        <p class="flex items-center gap-3 text-lg font-semibold" data-testid="status-down">
+          <span class="size-2.5 rounded-full bg-danger"></span>
+          Service unavailable
+        </p>
+        <p class="mt-3 text-sm text-on-dark-mute">{{ s.reason }}</p>
+        <button type="button" class="btn-primary mt-6" (click)="refresh()">Try again</button>
+      }
+    </div>
+  </div>
+</section>
