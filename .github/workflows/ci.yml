@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: ci_root
+          MYSQL_DATABASE: hajz
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -pci_root"
+          --health-interval=5s
+          --health-timeout=3s
+          --health-retries=30
+
+    env:
+      APP_ENV: test
+      MYSQL_DB: 127.0.0.1:root:ci_root:3306:hajz
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: backend/requirements*.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Migrate
+        run: python manage.py migrate
+
+      - name: Rollback and re-apply every migration
+        run: |
+          python manage.py rollback base
+          python manage.py migrate
+
+      - name: Models match migrations
+        run: python manage.py migration-check
+
+      - name: Seed
+        run: python manage.py seed
+
+      - name: Test
+        run: pytest -q
+
+      - name: Docker image builds
+        run: docker build -t hajz-api .

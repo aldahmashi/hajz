@@ -32,7 +32,7 @@ def seed(cursor) -> None:
     upsert_many(
         cursor,
         "cities",
-        [dict(zip(COLUMNS, city)) for city in CITIES],
+        [dict(zip(COLUMNS, city, strict=True)) for city in CITIES],
         key_columns=("slug",),
         update_columns=COLUMNS[1:],
     )
