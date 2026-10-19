@@ -1,0 +1,29 @@
+# Local development services.
+#   Start:            docker compose up -d
+#   Stop:             docker compose down
+#   Wipe local data:  docker compose down -v
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: hajz-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: hajz_local
+      MYSQL_DATABASE: hajz
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-time-zone=+00:00
+    ports:
+      # 3306 is used by the MySQL installed on Windows, so Hajz uses 3307.
+      - "3307:3306"
+    volumes:
+      - hajz-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-phajz_local"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  hajz-mysql-data:
