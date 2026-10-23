@@ -56,8 +56,10 @@ def _error(message: str) -> None:
 
 def _load_env() -> None:
     load_dotenv(ROOT_DIR / ".env")
-    mysql_db = os.environ.get("MYSQL_DB", "")
-    parts = mysql_db.split(":")
+    # Parse exactly like config.mysql_url: a stray space or newline pasted into a host
+    # dashboard must not make manage.py and the app disagree on the database name.
+    mysql_db = os.environ.get("MYSQL_DB", "").strip()
+    parts = [part.strip() for part in mysql_db.split(":")]
     if len(parts) != 5:
         raise SystemExit("MYSQL_DB must be set as host:user:password:port:database")
     host, user, password, port, database = parts
