@@ -19,5 +19,5 @@ USER hajz
 ENV PORT=8000
 EXPOSE 8000
 
-# Apply pending migrations, then serve. Render sets PORT.
-CMD ["sh", "-c", "python manage.py migrate && exec gunicorn 'app:create_app()' --bind 0.0.0.0:${PORT} --workers 2 --timeout 60 --access-logfile -"]
+# Apply pending migrations and the idempotent reference seeders, then serve. Render sets PORT.
+CMD ["sh", "-c", "python manage.py migrate && python manage.py seed && exec gunicorn 'app:create_app()' --bind 0.0.0.0:${PORT} --workers 2 --timeout 60 --access-logfile -"]

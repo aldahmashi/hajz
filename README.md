@@ -112,6 +112,7 @@ flowchart LR
 | [04 Business rules](docs/04-business-rules.md) | Booking, pricing, cancellation and other rules |
 | [05 Design reference](docs/05-design-reference.md) | Colours, type, components the UI is based on |
 | [06 Local development](docs/06-local-development.md) | Run the frontend and backend, tests, troubleshooting |
+| [07 Deployment](docs/07-deployment.md) | TiDB Cloud, Render and Vercel setup |
 
 ## Run locally
 

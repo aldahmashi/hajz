@@ -1,0 +1,24 @@
+# Render Blueprint for the Hajz API. Docs: docs/07-deployment.md
+services:
+  - type: web
+    name: hajz-api
+    runtime: docker
+    plan: free
+    region: singapore          # keep in the same region as the TiDB cluster
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeployTrigger: checksPass   # deploy main only after GitHub Actions CI is green
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      # host:user:password:port:database from TiDB Cloud. Entered in the dashboard, never committed.
+      - key: MYSQL_DB
+        sync: false
+      # CA bundle shipped in the python:3.13-slim image; TiDB Cloud requires TLS.
+      - key: DB_SSL_CA
+        value: /etc/ssl/certs/ca-certificates.crt
+      - key: ALLOWED_ORIGINS
+        value: https://hajz.vercel.app
