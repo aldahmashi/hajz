@@ -1,0 +1,8 @@
+# Offline data pipeline (not deployed to Render). Python 3.13.
+requests==2.32.3
+pandas==2.2.3
+PyMySQL==1.1.1
+cryptography==45.0.3
+python-dotenv==1.0.1
+pytest==8.3.4
+ruff==0.8.4
