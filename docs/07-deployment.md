@@ -2,7 +2,7 @@
 
 | Part | Host | Address |
 |---|---|---|
-| Frontend | Vercel (Hobby) | https://hajz.vercel.app |
+| Frontend | Vercel (Hobby) | https://hajz-booking.vercel.app |
 | Backend | Render (Free, Docker) | https://hajz-api.onrender.com |
 | Database | TiDB Cloud Serverless | `gateway01.<region>.prod.aws.tidbcloud.com:4000` |
 
@@ -57,7 +57,7 @@ If Render gave the service a different address (the name was taken), update the
 
 ## 3. Vercel (frontend)
 
-1. https://vercel.com/new → import `aldahmashi/hajz`.
+1. https://vercel.com/new → import `aldahmashi/hajz`. Project domain: **Settings → Domains → `hajz-booking.vercel.app`** (`hajz.vercel.app` belongs to someone else; per-deployment URLs sit behind Vercel login).
 2. **Root Directory: `frontend`**. Leave the preset on Angular and leave build
    settings alone (they come from `frontend/vercel.json`).
 3. Deploy. Every push to `main` redeploys automatically.

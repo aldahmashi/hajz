@@ -38,7 +38,9 @@ standard of production software.
 
 **Try it in 30 seconds:** one-click demo personas (Budget Backpacker, Luxury Couple,
 Remote Worker, Family Traveller) show the recommendations and assistant adapting to
-different travellers. *(Live demo coming soon.)*
+different travellers.
+
+**Live:** https://hajz-booking.vercel.app (early preview; the API sleeps when idle, so the first load can take up to a minute)
 
 ## Cities
 
@@ -93,8 +95,8 @@ flowchart LR
 |---|---|
 | Planning and design | ✅ Done |
 | Database layer (25 tables, migrations, seeders) | ✅ Done |
-| M0 · Setup: API skeleton, frontend, CI ✅ · first deployment ⏳ | ⏳ In progress |
-| M1 · Data import (14 cities) | ⬜ |
+| M0 · Setup: API, frontend, CI, live on Vercel + Render + TiDB | ✅ Done |
+| M1 · Data import (14 cities) | ⏳ Next |
 | M2 · Catalogue, search and map | ⬜ |
 | M3 · Accounts and demo personas | ⬜ |
 | M4 · Booking and Stripe test payments | ⬜ |
